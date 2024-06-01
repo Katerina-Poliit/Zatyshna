@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Katerina",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.44.1",
