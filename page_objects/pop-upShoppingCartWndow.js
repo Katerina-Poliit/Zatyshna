@@ -9,10 +9,10 @@ class PopupShoppingCartWndowPage {
 
         getCheckoutButton: () => this.page.getByRole('link', { name: 'Оформити замовлення' }),
         getheadingPopap: () => this.page.getByText('Товар додано в кошик'),
-        getPhotoProduct: ()  => this.page.getByRole('link', { name: 'Куртка Basic...' }).first(),
+        getPhotoProduct: ()  => this.page.getByRole('link', { name: 'Куртка з дек' }).nth(1),
         getCloseButton: () => this.page.locator('#modal-root').getByRole('button'),
-        getInfoProduct: () => this.page.getByText('Куртка Basic...BLACKL1 x 3'),
-        getTotalPrice: () => this.page.getByText('Разом:3 990 UAH'),
+        getInfoProduct: () => this.page.getByText('Куртка з дек...BLACKL1 x 3'),
+        getTotalPrice: () => this.page.getByText('Разом:3 890 UAH'),
         getBacketButton:  () => this.getByRole('link', { name: 'Кошик', exact: true })
 
 

@@ -52,7 +52,7 @@ export const test = base.extend({
             await homePage.clickCatalogBlackBtn();
 
             const catalogPage = new CatalogPage(page);
-            await catalogPage.clickJacketBasic();
+            await catalogPage.clickNewJacket();
             await page.waitForTimeout(2000);
             const jacketPage = new QuiltedJacketPage(page);
             await jacketPage.clickSizeLButton();
