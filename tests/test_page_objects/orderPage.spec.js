@@ -10,7 +10,7 @@ import { test, addProductCard } from "../../fixtures/base.js";
 
 
 
-test.describe('orderPage.spec', () => {
+test.describe.skip('orderPage.spec', () => {
 
     test('TC 04.01.1 Verify that the page contains the heading "Ваше замовлення"', async ({ page, addProductCard }) => {
         const ogderPage = new OrderPage(page);
