@@ -1,3 +1,4 @@
+import CartPage from "./cartPage";
 import HomePage from "./homePage";
 
 class ProductPage2 {
@@ -8,8 +9,8 @@ class ProductPage2 {
 	locators = {
 		getComfortSuitItemSizeBtn: () => this.page.getByRole('button', { name: 'S' }),
 		getAddToCartBtn: () => this.page.getByRole('button', { name: 'Додати в кошик' }),
-		getGolovnaBtn: () => this.page.getByRole('banner').getByRole('link', { name: 'Головна' })
-		// getCartBtn: () => this.page.getByRole('link', { name: 'Кошик' })
+		getGolovnaBtn: () => this.page.getByRole('banner').getByRole('link', { name: 'Головна' }),
+		getCartBtn: () => this.page.getByRole('link', { name: 'Кошик' })
 	};
 
 	async clickComfortSuitItemSizeBtn() {
@@ -27,11 +28,10 @@ class ProductPage2 {
 		return new HomePage(this.page);
 	}
 
-
-	// async clickCartBtn() {
-	// 	await this.locators.getCartBtn().click();
-	// 	return this;
-	// }
+	async clickCartBtn() {
+		await this.locators.getCartBtn().click();
+		return new CartPage(this.page);
+	}
 
 }
 
