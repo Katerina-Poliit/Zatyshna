@@ -16,7 +16,7 @@ class ContactsPage {
 		getSendButton: () => this.page.getByRole('button', { name: 'Відправити' }),
 		getMessageRequired: () => this.page.getByText('Поле обовʼязкове до заповнення').first(),
 		getEmailField: () => this.page.getByPlaceholder('E-mail'),
-		getMessageEmailField: () => this.page.getByText('Будь ласка, введіть дійсну адресу електронної пошти')
+		getMessageEmailField: () => this.page.getByText('Будь ласка, введіть дійсну адресу електронної пошти.')
 
 
 
@@ -67,6 +67,27 @@ class ContactsPage {
 		await this.locators.getEmailField().fill('sUn@gmai.c-om');
 
 	}
+
+	async fillwithoutAtEmailField() {
+		await this.locators.getEmailField().fill('sUngmai.com');
+
+	}
+
+	async fillwithAtAtEmailField() {
+		await this.locators.getEmailField().fill('sUnn@@gmai.com');
+
+	}
+
+	async fillwithDatEmailField() {
+		await this.locators.getEmailField().fill('sUn..n@gmai.com');
+
+	}
+
+	async fillwithoutNameEmailField() {
+		await this.locators.getEmailField().fill('@gmai.com');
+
+	}
+
 
 
 }

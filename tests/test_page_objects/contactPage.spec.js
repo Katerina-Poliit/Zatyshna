@@ -106,6 +106,38 @@ test('TC 06.01.5 Verify that the  "Имя" field does not accept numbers, a vali
 
     });
 
+    test('TC 06.01.16 Verify that the "E-mail" field does not accept an email without the @ symbol, a warning message has been received', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillwithoutAtEmailField();
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageEmailField()).toBeTruthy();
+
+
+    });
+
+    test('TC 06.01.17 Verify that the "E-mail" field does not accept an email with 2 @ symbol, a warning message has been received', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillwithAtAtEmailField();
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageEmailField()).toBeTruthy();
+
+    });
+
+    test('TC 06.01.18 Verify that the "E-mail" field does not accept an email with two dots in a row in the user name', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillwithDatEmailField();
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageEmailField()).toBeTruthy();
+
+    });
+
+    test('TC 06.01.20 Verify that the"E-mail" field does not accept an email without a username', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillwithoutNameEmailField();
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageEmailField()).toBeTruthy();
+
+    });
 
 })
 
