@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import HomePage from "../../page_objects/homePage.js";
 import ContactsPage from "../../page_objects/contactsPage.js";
-import {HEADING_TEXT, HEADING_BLOCK_TEXT, MESSAGE_REQUIRED, VALID_MESSEGE_EMAIL} from "../../helpers/testDataContact.js";
+import { HEADING_TEXT, HEADING_BLOCK_TEXT, MESSAGE_REQUIRED, VALID_MESSEGE_EMAIL, SEND_BUTTON_TEXT, PHONE_MANADGER_TEXT, EMAIL_MANADGET_TEXT } from "../../helpers/testDataContact.js";
 
 
 test.describe('Conact Page Tests', () => {
@@ -43,7 +43,7 @@ test.describe('Conact Page Tests', () => {
     });
 
 
-test('TC 06.01.5 Verify that the  "Имя" field does not accept numbers, a validation message has been received', async ({ page }) => {
+    test('TC 06.01.5 Verify that the  "Имя" field does not accept numbers, a validation message has been received', async ({ page }) => {
         const contactPage = new ContactsPage(page);
         await contactPage.fillNumberNameField();
         await contactPage.clickSendButton();
@@ -139,5 +139,52 @@ test('TC 06.01.5 Verify that the  "Имя" field does not accept numbers, a vali
 
     });
 
+    test('TC 06.01.25 Verify that the "За язатися з нами" block contains the textarea field', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await expect(contactPage.locators.getTextarea()).toBeVisible();
+        await expect(contactPage.locators.getTextarea()).toHaveAttribute('placeholder', 'Повідомлення');
+
+    });
+
+    test('TC 06.01.25 Verify that the text area is a required field', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageRequired()).toBeVisible();
+        await expect(contactPage.locators.getMessageRequired()).toHaveText(MESSAGE_REQUIRED);
+        await expect(contactPage.locators.getNameField()).toHaveCSS('border', '2px solid rgb(124, 125, 128)')
+
+    });
+
+    test('TC 06.01.26 Verify that the page contains the "Вiдправити" button', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await expect(contactPage.locators.getSendButton()).toBeVisible();
+        await expect(contactPage.locators.getSendButton()).toHaveCSS('cursor', 'pointer');
+        await expect(contactPage.locators.getSendButton()).toHaveCSS('background', 'rgb(22, 11, 3) none repeat scroll 0% 0% / auto padding-box border-box');
+        await expect(contactPage.locators.getSendButton()).toHaveText(SEND_BUTTON_TEXT);
+    });
+
+    test('TC 06.01.28 Verify that the  page contains the managers phone number', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await expect(contactPage.locators.getNumberMenadger()).toBeVisible();
+        await expect(contactPage.locators.getNumberMenadger()).toHaveText(PHONE_MANADGER_TEXT);
+    });
+
+    test('TC 06.01.29 Verify that the  page contains the managers email number', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await expect(contactPage.locators.getEmailManadger()).toBeVisible();
+        await expect(contactPage.locators.getEmailManadger()).toHaveText(EMAIL_MANADGET_TEXT);
+    });
+
+    test('TC 06.01.30 Verify that the page contains links to social networks Instagram', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await expect(contactPage.locators.getInstagramLink()).toBeVisible();
+        await expect(contactPage.locators.getInstagramLink()).toHaveCSS('cursor', 'pointer');
+    });
+
+    test('TC 06.01.31 Verify that the page contains links to social networks Facebook', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await expect(contactPage.locators.getFacebookLink()).toBeVisible();
+        await expect(contactPage.locators.getFacebookLink()).toHaveCSS('cursor', 'pointer');
+    });
 })
 
