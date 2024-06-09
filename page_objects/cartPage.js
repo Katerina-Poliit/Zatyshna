@@ -1,4 +1,5 @@
 import CatalogPage from "./catalogPage";
+import OrderPage from "./orderPage";
 
 class CartPage {
 	constructor(page) {
@@ -26,7 +27,11 @@ class CartPage {
 		getRazomLine: () => this.page.getByText('Разом 650 UAH'),
 		getRazomLineHeader: () => this.page.getByText('Разом'),
 		getRazomTotalPurchaseAmount: () => this.page.getByText('UAH').nth(1),
-		getRazomTotalPurchaseAmountX2: () => this.page.getByText('300 UAH').nth(1)
+		getRazomTotalPurchaseAmountX2: () => this.page.getByText('300 UAH').nth(1),
+		getDeliveryCost: () => this.page.getByText('Вартість доставки'),
+		getAtCarrierRates: () => this.page.getByText('За тарифами перевізника'),
+		getPlaceAnOrderBtn: () => this.page.getByRole('link', { name: 'Оформити замовлення' }),
+		getContinueShoppingBtn: () => this.page.getByRole('link', { name: 'Продовжити покупки' })
 	};
 
 	async clickQuantityAddBtn() {
@@ -52,6 +57,11 @@ class CartPage {
 	async clickCleanCartLink() {
 		await this.locators.getCleanCartLink().click();
 		return this;
+	}
+
+	async clickPlaceAnOrderBtn() {
+		await this.locators.getPlaceAnOrderBtn().click();
+		return new OrderPage(this.page);
 	}
 
 }

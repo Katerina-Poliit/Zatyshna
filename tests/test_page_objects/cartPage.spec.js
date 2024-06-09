@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { CART_BREADCRUMBS_TEXT, CART_URL, LIST_HEADERS, PRODUCT_NAME_TEXT, PRODUCT_SIZE_TEXT, PRODUCT_COLOR_TEXT, PRODUCT_PRICE_TEXT, MESSAGE_TEXT, MESSAGE_LINK_TEXT, CATALOG_PAGE_BREADCRUMBS_TEXT, CATALOG_URL, CLEAN_CART_LINK_TEXT, TOTAL_PURCHASE_AMOUNT_TEXT, RAZOM_HEADER_TEXT, TOTAL_PURCHASE_AMOUNT_X2_TEXT } from "../../helpers/testDataCartPage.js";
+import { CART_BREADCRUMBS_TEXT, CART_URL, LIST_HEADERS, PRODUCT_NAME_TEXT, PRODUCT_SIZE_TEXT, PRODUCT_COLOR_TEXT, PRODUCT_PRICE_TEXT, MESSAGE_TEXT, MESSAGE_LINK_TEXT, CATALOG_PAGE_BREADCRUMBS_TEXT, CATALOG_URL, CLEAN_CART_LINK_TEXT, TOTAL_PURCHASE_AMOUNT_TEXT, RAZOM_HEADER_TEXT, TOTAL_PURCHASE_AMOUNT_X2_TEXT, DELIVERY_COST_TEXT, AT_CARRIER_RATES_TEXT, PLACE_AN_ORDER_BUTTON_TEXT, ORDER_URL, ORDER_PAGE_BREADCRUMBS, CONTINUE_SHOPPING_BUTTON_TEXT } from "../../helpers/testDataCartPage.js";
 import { test, productInTheShoppingCart } from "../../fixtures/base.js";
 import CartPage from "../../page_objects/cartPage.js";
 
@@ -265,6 +265,65 @@ test.describe('cartPage.spec', () => {
 
 		await expect(cartPage.locators.getRazomTotalPurchaseAmountX2()).toBeVisible();
 		await expect(cartPage.locators.getRazomTotalPurchaseAmountX2()).toHaveText(TOTAL_PURCHASE_AMOUNT_X2_TEXT);
+  
+	});
+
+	test('ТС 05.01.29 Verify that the information block contains "Вартість доставки" section', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getDeliveryCost()).toBeVisible();
+		await expect(cartPage.locators.getDeliveryCost()).toHaveText(DELIVERY_COST_TEXT);
+  
+	});
+
+	test('ТС 05.01.30 Verify that the information block contains "За тарифами перевізника" section', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getAtCarrierRates()).toBeVisible();
+		await expect(cartPage.locators.getAtCarrierRates()).toHaveText(AT_CARRIER_RATES_TEXT);
+  
+	});
+
+	test('ТС 05.01.31 Verify that the cart page contains the "Оформити замовлення" button', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getPlaceAnOrderBtn()).toBeVisible();
+		await expect(cartPage.locators.getPlaceAnOrderBtn()).toHaveText(PLACE_AN_ORDER_BUTTON_TEXT);
+  
+	});
+
+	test('ТС 05.01.32 Verify that the "Оформити замовлення" button has a pointer cursor', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getPlaceAnOrderBtn()).toBeVisible();
+		await expect(cartPage.locators.getPlaceAnOrderBtn()).toHaveCSS('cursor', 'pointer');
+  
+	});
+
+	test('ТС 05.01.33 Verify that the "Оформити замовлення" button is colored black', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getPlaceAnOrderBtn()).toBeVisible();
+		await expect(cartPage.locators.getPlaceAnOrderBtn()).toHaveCSS('background-color', 'rgb(22, 11, 3)');
+  
+	});
+
+	test('ТС 05.01.34 Verify that the user taken to the checkout page after clicking on the "Оформити замовлення" button', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		const orderPage = await cartPage.clickPlaceAnOrderBtn();
+
+		await expect(page).toHaveURL(ORDER_URL);
+		await expect(orderPage.locators.getOrderPageBreadcrumbs()).toBeVisible();
+		await expect(orderPage.locators.getOrderPageBreadcrumbs()).toHaveText(ORDER_PAGE_BREADCRUMBS);
+  
+	});
+
+	test('ТС 05.01.35 Verify that the cart page contains the "Продовжити покупки" button', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getContinueShoppingBtn()).toBeVisible();
+		await expect(cartPage.locators.getContinueShoppingBtn()).toHaveText(CONTINUE_SHOPPING_BUTTON_TEXT);
   
 	});
 

@@ -32,9 +32,10 @@ class OrderPage {
 		getCheckbox: () => this.page.getByText('Зателефонуйте мені для уточнення деталей замовлення'),
 		getBlockPayment: () => this.page.getByText('3Оплата'),
 		getCheckboxPayment: () => this.page.getByText('Оплата за реквізитамиОплата при отриманні'),
-		getSuccessfulOrder: () => this.page.getByRole('main').getByRole('img')
+		getSuccessfulOrder: () => this.page.getByRole('main').getByRole('img'),
+		getOrderPageBreadcrumbs: () => this.page.getByRole('link', { name: 'Оформлення' })
+	 }
 
-    }
 
 	async clickOrderButton() {
 		await this.locators.getOrderButton().click();
@@ -81,7 +82,6 @@ class OrderPage {
 		await this.locators.getEmailField().fill('^&%$@gmail.com');
 	}
 
-
 	async fillCyrillicLettersEmailField() {
 		await this.locators.getEmailField().fill('катрусяgmail.com');
 	}
@@ -120,13 +120,11 @@ class OrderPage {
 	async clickCheckBoxMandatory() {
 		await this.locators.getCheckBoxMandatory().click();
 	}
+
 	async fillnewEmailField() {
 		await this.locators.getEmailField().fill('katerinapollit@gmail.com');
 	}
 
+}
 
-
-
-
-
-}export default OrderPage;
+export default OrderPage;
