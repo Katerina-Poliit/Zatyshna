@@ -16,7 +16,12 @@ class ContactsPage {
 		getSendButton: () => this.page.getByRole('button', { name: 'Відправити' }),
 		getMessageRequired: () => this.page.getByText('Поле обовʼязкове до заповнення').first(),
 		getEmailField: () => this.page.getByPlaceholder('E-mail'),
-		getMessageEmailField: () => this.page.getByText('Будь ласка, введіть дійсну адресу електронної пошти.')
+		getMessageEmailField: () => this.page.getByText('Будь ласка, введіть дійсну адресу електронної пошти.'),
+		getTextarea: () => this.page.getByPlaceholder('Повідомлення'),
+		getNumberMenadger: () => this.page.getByText('Зв’язок з менеджером+'),
+		getEmailManadger: () => this.page.getByText('Emailzatyshna@kmail.com'),
+		getInstagramLink: () => this.page.locator('section').filter({ hasText: 'Зв’язок з менеджером+' }).getByRole('link').nth(2),
+		getFacebookLink: () => this.page.locator('section').filter({ hasText: 'Зв’язок з менеджером+' }).getByRole('link').nth(3)
 
 
 
