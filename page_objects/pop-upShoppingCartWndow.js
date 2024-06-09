@@ -13,7 +13,8 @@ class PopupShoppingCartWndowPage {
         getCloseButton: () => this.page.locator('#modal-root').getByRole('button'),
         getInfoProduct: () => this.page.getByText('Куртка з дек...BLACKL1 x 3'),
         getTotalPrice: () => this.page.getByText('Разом:3 890 UAH'),
-        getBacketButton:  () => this.getByRole('link', { name: 'Кошик', exact: true })
+        getBacketButton:  () => this.getByRole('link', { name: 'Кошик', exact: true }),
+        getScroll: () => this.locators('.fzbEpl')
 
 
 

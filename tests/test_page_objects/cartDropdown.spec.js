@@ -2,10 +2,15 @@ import { expect } from "@playwright/test";
 import HomePage from "../../page_objects/homePage.js";
 import { HEADING_TEXT, PLACE_ORDER_TEXT, BASKET_TEXT} from "../../helpers/testDataCartDropdown.js";
 import PopupShoppingCartWndowPage from "../../page_objects/pop-upShoppingCartWndow.js";
-import { test, productInCart } from "../../fixtures/base.js";
+import { test, productInCart, multipleItemsInCart } from "../../fixtures/base.js";
 
 
 test.describe('cartDropdown.spec', () => {
+
+    test.afterEach(async ({ page }) => {
+        const madalWindowPage = new PopupShoppingCartWndowPage(page);
+        await madalWindowPage.clickCloseButton();
+      })
 
     test('TC  08.01.1 Verify that the  pop-up window contains the name of the "Товара додано в кошик"', async ({ page,productInCart }) => {
 
@@ -45,15 +50,6 @@ test.describe('cartDropdown.spec', () => {
         await expect(madalWindowPage.locators.getCheckoutButton()).toHaveText(PLACE_ORDER_TEXT);
     });
 
-    // test('TC 08.01.7  Verify that the "Кошик" button is displayed in the pop-up window', async ({ page,productInCart }) => {
-
-    //     const madalWindowPage = new PopupShoppingCartWndowPage(page);
-    //     await expect(madalWindowPage.locators.getBacketButton()).toBeVisible();
-    //     await expect(madalWindowPage.locators.getBacketButton()).toHaveCSS('cursor', 'pointer');
-    //     await expect(madalWindowPage.locators.getBacketButton()).toHaveCSS('color', 'rgb(255, 255, 255)')
-    //     await expect(madalWindowPage.locators.getBacketButton()).toHaveText(BASKET_TEXT);
-    // });
-
 
     test('TC 08.01.8  Verify that the  user can close the popup by clicking on the close button "X"', async ({ page,productInCart }) => {
 
@@ -61,6 +57,44 @@ test.describe('cartDropdown.spec', () => {
         await madalWindowPage.clickCloseButton()
         await expect(madalWindowPage.locators. getheadingPopap()).not.toBeVisible();
     });
+
+
+    // test('TC 08.01.  ', async ({ page,multipleItemsInCart }) => {
+
+    //     const madalWindowPage = new PopupShoppingCartWndowPage(page);
+    //     const scrollbar = page.locator('.fzbEpl');
+
+	// 	await scrollbar.evaluate((productList) => {
+	// 		productList.scrollTop = productList.scrollHeight;
+	// 	});
+
+	// 	await page.waitForTimeout(1000);
+
+	// 	const isScrolledDown = await scrollbar.evaluate((productList) => {
+	// 		return productList.scrollTop > 0;
+	// 	});
+
+	// 	expect(isScrolledDown).toBe(true);
+
+    // });
+
+    test('TC 08.01.  ', async ({ page,multipleItemsInCart }) => {
+
+        const madalWindowPage = new PopupShoppingCartWndowPage(page);
+        await page.waitForTimeout(2000);
+        const scrollbar = page.locator('.sc-KrMMd');
+        await expect(scrollbar).toBeVisible();
+
+        await page.waitForTimeout(1000);
+
+		const isScrolledDown = await scrollbar.evaluate((productList) => {
+			return productList.scrollTop > 0;
+		});
+
+		expect(isScrolledDown).toBe(false);
+
+    });
+
 
 
 

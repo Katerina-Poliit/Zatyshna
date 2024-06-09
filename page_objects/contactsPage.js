@@ -21,7 +21,8 @@ class ContactsPage {
 		getNumberMenadger: () => this.page.getByText('Зв’язок з менеджером+'),
 		getEmailManadger: () => this.page.getByText('Emailzatyshna@kmail.com'),
 		getInstagramLink: () => this.page.locator('section').filter({ hasText: 'Зв’язок з менеджером+' }).getByRole('link').nth(2),
-		getFacebookLink: () => this.page.locator('section').filter({ hasText: 'Зв’язок з менеджером+' }).getByRole('link').nth(3)
+		getFacebookLink: () => this.page.locator('section').filter({ hasText: 'Зв’язок з менеджером+' }).getByRole('link').nth(3),
+		getMessageSend: () => this.page.locator('div').filter({ hasText: /^Дякуємо, ми переглянемо ваш лист і зв'яжемось з вами в найближчий робочий час\.$/ })
 
 
 
@@ -90,6 +91,11 @@ class ContactsPage {
 
 	async fillwithoutNameEmailField() {
 		await this.locators.getEmailField().fill('@gmai.com');
+
+	}
+
+	async fillTextarea() {
+		await this.locators.getTextarea().fill('good');
 
 	}
 

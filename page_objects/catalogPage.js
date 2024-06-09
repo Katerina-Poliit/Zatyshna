@@ -36,7 +36,9 @@ class CatalogPage {
 		getAddToCartBtn: () => this.page.getByRole('button', { name: 'Додати в кошик' }),
 		getGolovnaBreadcrumbs: () => this.page.getByRole('main').getByRole('link', { name: 'Головна' }),
 		getJacketBasic: () => this.page.getByRole('link', { name: 'Куртка Basic однотонна з ...' }).first(),
-		getNewJacket: () => this.page. getByRole('link', { name: 'Куртка з декоративними шв...' }).nth(1)
+		getNewJacket: () => this.page. getByRole('link', { name: 'Куртка з декоративними шв...' }).nth(1),
+		getSoftjacket: () => this.page.getByRole('link', { name: 'Костюм Soft зі світшотом ...' }).nth(1),
+		getEasy: () => this.page.getByRole('link', { name: 'Костюм Easy зі штанами st...' }).nth(1)
 	};
 
 	async clickDropdownSorting() {
@@ -93,6 +95,17 @@ class CatalogPage {
 		await this.locators.getNewJacket().click();
 		return new QuiltedJacketPage(this.page);
 	}
+
+	async clickSoftjacket() {
+		await this.locators.getSoftjacket().click();
+		return new QuiltedJacketPage(this.page);
+	}
+
+	async clickEasyjacket() {
+		await this.locators.getEasy().click();
+		return new QuiltedJacketPage(this.page);
+	}
+
 
 }
 

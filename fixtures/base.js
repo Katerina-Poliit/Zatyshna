@@ -80,4 +80,41 @@ export const test = base.extend({
 		{ scope: "test" },
   ],
 
+  multipleItemsInCart: [
+    async ({ page }, use) => {
+
+
+        const homePage = new HomePage(page);
+        await homePage.open();
+        await homePage.clickCatalogBlackBtn();
+
+        const catalogPage = new CatalogPage(page);
+        await catalogPage.clickNewJacket();
+        await page.waitForTimeout(2000);
+        const jacketPage = new QuiltedJacketPage(page);
+        await jacketPage.clickSizeLButton();
+        await jacketPage.clickCartButton();
+
+        await homePage.clickCatalogBlackBtn();
+        const catalog =  new CatalogPage(page);
+        await catalog.clickSoftjacket();
+        await page.waitForTimeout(2000);
+        const soft = new QuiltedJacketPage(page);
+        await soft.clickSizeLButton();
+        await jacketPage.clickCartButton();
+
+
+        await homePage.clickCatalogBlackBtn();
+        const newJacket = new CatalogPage(page);
+        await newJacket.clickEasyjacket();
+        await page.waitForTimeout(2000);
+        const size = new QuiltedJacketPage(page);
+        await soft.clickSizeLButton();
+        await jacketPage.clickCartButton();
+
+        await use("");
+    },
+    { scope: "test" },
+],
+
 })

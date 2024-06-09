@@ -11,7 +11,8 @@ class QuiltedJacketPage {
 
 		getSizeButton: () => this.page.getByRole('button', { name: 'S' }),
 		getCartButton: () => this.page.getByRole('button', { name: 'Додати в кошик' }),
-		getSizeLButton: () => this.page.getByRole('button', { name: 'L' })
+		getSizeLButton: () => this.page.getByRole('button', { name: 'L' }),
+		
 
 
 
