@@ -28,4 +28,4 @@ export const PLACE_AN_ORDER_BUTTON_TEXT = 'Оформити замовлення
 export const ORDER_PAGE_BREADCRUMBS = 'Оформлення';
 export const CONTINUE_SHOPPING_BUTTON_TEXT = 'Продовжити покупки';
 export const BREADCRUMBS_TEXT = 'ГоловнаКошик';
-
+export const CATALOG_BREADCRUMBS_TEXT = 'Каталог';
