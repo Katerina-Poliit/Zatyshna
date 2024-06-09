@@ -246,6 +246,11 @@ class HomePage {
 		return new ProductPage3(this.page);
 	}
 
+	async clickAboutUsBtn() {
+		await this.locators.getAboutUsBtn().click();
+		return new AboutUsPage(this.page);
+	}
+
 }
 
 export default HomePage;
