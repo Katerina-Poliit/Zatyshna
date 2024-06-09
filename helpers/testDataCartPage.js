@@ -25,4 +25,5 @@ export const AT_CARRIER_RATES_TEXT = 'За тарифами перевізник
 export const PLACE_AN_ORDER_BUTTON_TEXT = 'Оформити замовлення';
 export const ORDER_PAGE_BREADCRUMBS = 'Оформлення';
 export const CONTINUE_SHOPPING_BUTTON_TEXT = 'Продовжити покупки';
+export const CATALOG_READCRUMBS_TEXT = 'Каталог';
 

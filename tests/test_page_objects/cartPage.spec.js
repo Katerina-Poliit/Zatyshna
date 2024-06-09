@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { CART_BREADCRUMBS_TEXT, CART_URL, LIST_HEADERS, PRODUCT_NAME_TEXT, PRODUCT_SIZE_TEXT, PRODUCT_COLOR_TEXT, PRODUCT_PRICE_TEXT, MESSAGE_TEXT, MESSAGE_LINK_TEXT, CATALOG_PAGE_BREADCRUMBS_TEXT, CATALOG_URL, CLEAN_CART_LINK_TEXT, TOTAL_PURCHASE_AMOUNT_TEXT, RAZOM_HEADER_TEXT, TOTAL_PURCHASE_AMOUNT_X2_TEXT, DELIVERY_COST_TEXT, AT_CARRIER_RATES_TEXT, PLACE_AN_ORDER_BUTTON_TEXT, ORDER_URL, ORDER_PAGE_BREADCRUMBS, CONTINUE_SHOPPING_BUTTON_TEXT } from "../../helpers/testDataCartPage.js";
+import { CART_BREADCRUMBS_TEXT, CART_URL, LIST_HEADERS, PRODUCT_NAME_TEXT, PRODUCT_SIZE_TEXT, PRODUCT_COLOR_TEXT, PRODUCT_PRICE_TEXT, MESSAGE_TEXT, MESSAGE_LINK_TEXT, CATALOG_PAGE_BREADCRUMBS_TEXT, CATALOG_URL, CLEAN_CART_LINK_TEXT, TOTAL_PURCHASE_AMOUNT_TEXT, RAZOM_HEADER_TEXT, TOTAL_PURCHASE_AMOUNT_X2_TEXT, DELIVERY_COST_TEXT, AT_CARRIER_RATES_TEXT, PLACE_AN_ORDER_BUTTON_TEXT, ORDER_URL, ORDER_PAGE_BREADCRUMBS, CONTINUE_SHOPPING_BUTTON_TEXT, CATALOG_READCRUMBS_TEXT } from "../../helpers/testDataCartPage.js";
 import { test, productInTheShoppingCart } from "../../fixtures/base.js";
 import CartPage from "../../page_objects/cartPage.js";
 
@@ -325,6 +325,139 @@ test.describe('cartPage.spec', () => {
 		await expect(cartPage.locators.getContinueShoppingBtn()).toBeVisible();
 		await expect(cartPage.locators.getContinueShoppingBtn()).toHaveText(CONTINUE_SHOPPING_BUTTON_TEXT);
   
+	});
+
+	test('ТС 05.01.36 Verify that the "Продовжити покупки" button has a pointer cursor', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getContinueShoppingBtn()).toBeVisible();
+		await expect(cartPage.locators.getContinueShoppingBtn()).toHaveCSS('cursor', 'pointer');
+  
+	});
+
+	test('ТС 05.01.37 Verify that the "Продовжити покупки" button is colored white', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getContinueShoppingBtn()).toBeVisible();
+		await expect(cartPage.locators.getContinueShoppingBtn()).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  
+	});
+
+	test('ТС 05.01.38 Verify that the user redirects to catalog page after clicking on "Продовжити покупки" button', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		const catalogPage = await cartPage.clickContinueShoppingBtn();
+
+		await expect(page).toHaveURL(CATALOG_URL);
+
+		await expect(catalogPage.locators.getCatalogBreadcrumbs()).toBeVisible();
+		await expect(catalogPage.locators.getCatalogBreadcrumbs()).toHaveText(CATALOG_READCRUMBS_TEXT);
+
+	});
+
+	test('ТС 05.01.39 Verify that the cart page contains scroll with a large number of products in the cart', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		const homePage = await cartPage.clickGolovnaBtn();
+
+		const productPage2 = await homePage.clickComfortSuitItem();
+
+		await productPage2.clickComfortSuitItemSizeBtn();
+		await productPage2.clickAddToCartBtn();
+		await productPage2.clickCartBtn();
+
+		await expect(cartPage.locators.getScroll()).toBeVisible();
+
+	});
+
+	test('ТС 05.01.40 Verify that the product list scrolls down', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		const homePage = await cartPage.clickGolovnaBtn();
+
+		const productPage2 = await homePage.clickComfortSuitItem();
+
+		await productPage2.clickComfortSuitItemSizeBtn();
+		await productPage2.clickAddToCartBtn();
+		await productPage2.clickGolovnaBtn();
+		await homePage.clickNextBtn();
+
+		const productPage3 = await homePage.clickKnittedSuitWithHoodieItem();
+		await productPage3.clickComfortSuitItemSizeBtn();
+		await productPage3.clickAddToCartBtn();
+		await productPage3.clickCartBtn();
+
+		const scrollbar = page.locator('.sc-hbaYYk');
+
+		await scrollbar.evaluate((productList) => {
+			productList.scrollTop = productList.scrollHeight;
+		});
+
+		await page.waitForTimeout(1000);
+
+		const isScrolledDown = await scrollbar.evaluate((productList) => {
+			return productList.scrollTop > 0;
+		});
+
+		expect(isScrolledDown).toBe(true);
+
+	});
+
+	test('ТС 05.01.41 Verify that the product list scrolls up', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		const homePage = await cartPage.clickGolovnaBtn();
+
+		const productPage2 = await homePage.clickComfortSuitItem();
+
+		await productPage2.clickComfortSuitItemSizeBtn();
+		await productPage2.clickAddToCartBtn();
+		await productPage2.clickGolovnaBtn();
+		await homePage.clickNextBtn();
+
+		const productPage3 = await homePage.clickKnittedSuitWithHoodieItem();
+		await productPage3.clickComfortSuitItemSizeBtn();
+		await productPage3.clickAddToCartBtn();
+		await productPage3.clickCartBtn();
+
+		const scrollbar = page.locator('.sc-hbaYYk');
+
+		await scrollbar.evaluate((productList) => {
+			productList.scrollTop = productList.scrollHeight;
+		});
+
+		await page.waitForTimeout(1000);
+
+		const isScrolledDown = await scrollbar.evaluate((productList) => {
+			return productList.scrollTop > 0;
+		});
+
+		expect(isScrolledDown).toBe(true);
+
+		await scrollbar.evaluate((productList) => {
+			productList.scrollTop = 0;
+		});
+
+		await page.waitForTimeout(1000);
+
+		const isScrolledUp = await scrollbar.evaluate((productList) => {
+			return productList.scrollTop === 0;
+		});
+		expect(isScrolledUp).toBe(true);
+
+	});
+
+	test('ТС 05.01.42 Verify that the minimum quantity of goods is 1 pc.', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getQuantityBtn()).toBeVisible();
+		await expect(cartPage.locators.getQuantityBtn()).toHaveText('1');
+
+		await cartPage.clickQuantityDecrBtn();
+
+		await expect(cartPage.locators.getQuantityBtn()).toBeVisible();
+		await expect(cartPage.locators.getQuantityBtn()).toHaveText('1');
+
 	});
 
 })
