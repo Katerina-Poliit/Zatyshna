@@ -14,6 +14,9 @@ class ContactsPage {
 		getNameField: () => this.page.getByPlaceholder('Імʼя'),
 		getMessageNameField: () => this.page.getByText('Невірне імʼя'),
 		getSendButton: () => this.page.getByRole('button', { name: 'Відправити' }),
+		getMessageRequired: () => this.page.getByText('Поле обовʼязкове до заповнення').first(),
+		getEmailField: () => this.page.getByPlaceholder('E-mail'),
+		getMessageEmailField: () => this.page.getByText('Будь ласка, введіть дійсну адресу електронної пошти')
 
 
 
@@ -42,6 +45,26 @@ class ContactsPage {
 
 	async clickSendButton() {
 		await this.locators.getSendButton().click();
+
+	}
+
+	async fillEmailField() {
+		await this.locators.getEmailField().fill('sun@gmai.com');
+
+	}
+
+	async fillsensitiveEmailField() {
+		await this.locators.getEmailField().fill('sUn@gmai.com');
+
+	}
+
+	async fillHyphenEmailField() {
+		await this.locators.getEmailField().fill('sU-n@gmai.com');
+
+	}
+
+	async fillHyphenDomainEmailField() {
+		await this.locators.getEmailField().fill('sUn@gmai.c-om');
 
 	}
 
