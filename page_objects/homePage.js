@@ -70,7 +70,6 @@ class HomePage {
 		getOpenProductCart: () => this.page.getByRole('link', { name: 'Футболка Obsessed with fa...' }),
 		getComfortSuitItem: () => this.page.getByRole('link', { name: 'Костюм Comfort трикотажни...' }),
 		getKnittedSuitWithHoodieItem: () => this.page.getByRole('link', { name: 'Костюм трикотажний з худі...' })
-
 	};
 
 	async open() {

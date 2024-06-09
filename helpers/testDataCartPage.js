@@ -3,6 +3,8 @@
 export const CART_URL = 'https://clothing-store-app.vercel.app/cart';
 export const CATALOG_URL = 'https://clothing-store-app.vercel.app/catalog';
 export const ORDER_URL = 'https://clothing-store-app.vercel.app/order';
+export const PRODUCT_URL = 'https://clothing-store-app.vercel.app/catalog/96';
+export const BASE_URL = 'https://clothing-store-app.vercel.app';
 
 
 //test data
@@ -25,5 +27,5 @@ export const AT_CARRIER_RATES_TEXT = 'За тарифами перевізник
 export const PLACE_AN_ORDER_BUTTON_TEXT = 'Оформити замовлення';
 export const ORDER_PAGE_BREADCRUMBS = 'Оформлення';
 export const CONTINUE_SHOPPING_BUTTON_TEXT = 'Продовжити покупки';
-export const CATALOG_READCRUMBS_TEXT = 'Каталог';
-
+export const BREADCRUMBS_TEXT = 'ГоловнаКошик';
+export const CATALOG_BREADCRUMBS_TEXT = 'Каталог';

@@ -1,6 +1,7 @@
 import CatalogPage from "./catalogPage";
 import HomePage from "./homePage";
 import OrderPage from "./orderPage";
+import ProductPage from "./productPage";
 
 class CartPage {
 	constructor(page) {
@@ -34,7 +35,11 @@ class CartPage {
 		getPlaceAnOrderBtn: () => this.page.getByRole('link', { name: 'Оформити замовлення' }),
 		getContinueShoppingBtn: () => this.page.getByRole('link', { name: 'Продовжити покупки' }),
 		getGolovnaBtn: () => this.page.getByRole('banner').getByRole('link', { name: 'Головна' }),
-		getScroll: () => this.page.locator('.sc-hbaYYk')
+		getScroll: () => this.page.locator('.sc-hbaYYk'),
+		getBreadcrumbs: () => this.page.getByText('ГоловнаКошик'),
+		getBreadcrumbsGolovna: () => this.page.getByRole('main').getByRole('link', { name: 'Головна' }),
+		getScrollToTopBtn: () => this.page.locator('.sc-gUjWqj'),
+		getScrollToTopBtnIcon: () => this.page.locator('.sc-gUjWqj')
 	};
 
 	async clickQuantityAddBtn() {
@@ -75,6 +80,21 @@ class CartPage {
 	async clickGolovnaBtn() {
 		await this.locators.getGolovnaBtn().click();
 		return new HomePage(this.page);
+	}
+
+	async clickProductName() {
+		await this.locators.getProductName().click();
+		return new ProductPage(this.page);
+	}
+
+	async clickBreadcrumbsGolovna() {
+		await this.locators.getBreadcrumbsGolovna().click();
+		return new HomePage(this.page);
+	}
+
+	async clickScrollToTopBtn() {
+		await this.locators.getScrollToTopBtn().click();
+		return this;
 	}
 
 }
