@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { CART_BREADCRUMBS_TEXT, CART_URL, LIST_HEADERS, PRODUCT_NAME_TEXT, PRODUCT_SIZE_TEXT, PRODUCT_COLOR_TEXT, PRODUCT_PRICE_TEXT, MESSAGE_TEXT, MESSAGE_LINK_TEXT, CATALOG_PAGE_BREADCRUMBS_TEXT, CATALOG_URL, CLEAN_CART_LINK_TEXT, TOTAL_PURCHASE_AMOUNT_TEXT, RAZOM_HEADER_TEXT, TOTAL_PURCHASE_AMOUNT_X2_TEXT, DELIVERY_COST_TEXT, AT_CARRIER_RATES_TEXT, PLACE_AN_ORDER_BUTTON_TEXT, ORDER_URL, ORDER_PAGE_BREADCRUMBS, CONTINUE_SHOPPING_BUTTON_TEXT, CATALOG_READCRUMBS_TEXT } from "../../helpers/testDataCartPage.js";
+import { CART_BREADCRUMBS_TEXT, CART_URL, LIST_HEADERS, PRODUCT_NAME_TEXT, PRODUCT_SIZE_TEXT, PRODUCT_COLOR_TEXT, PRODUCT_PRICE_TEXT, MESSAGE_TEXT, MESSAGE_LINK_TEXT, CATALOG_PAGE_BREADCRUMBS_TEXT, CATALOG_URL, CLEAN_CART_LINK_TEXT, TOTAL_PURCHASE_AMOUNT_TEXT, RAZOM_HEADER_TEXT, TOTAL_PURCHASE_AMOUNT_X2_TEXT, DELIVERY_COST_TEXT, AT_CARRIER_RATES_TEXT, PLACE_AN_ORDER_BUTTON_TEXT, ORDER_URL, ORDER_PAGE_BREADCRUMBS, CONTINUE_SHOPPING_BUTTON_TEXT, CATALOG_BREADCRUMBS_TEXT, PRODUCT_URL, BREADCRUMBS_TEXT, BASE_URL } from "../../helpers/testDataCartPage.js";
 import { test, productInTheShoppingCart } from "../../fixtures/base.js";
 import CartPage from "../../page_objects/cartPage.js";
 
@@ -351,7 +351,7 @@ test.describe('cartPage.spec', () => {
 		await expect(page).toHaveURL(CATALOG_URL);
 
 		await expect(catalogPage.locators.getCatalogBreadcrumbs()).toBeVisible();
-		await expect(catalogPage.locators.getCatalogBreadcrumbs()).toHaveText(CATALOG_READCRUMBS_TEXT);
+		await expect(catalogPage.locators.getCatalogBreadcrumbs()).toHaveText(CATALOG_BREADCRUMBS_TEXT);
 
 	});
 
@@ -458,6 +458,100 @@ test.describe('cartPage.spec', () => {
 		await expect(cartPage.locators.getQuantityBtn()).toBeVisible();
 		await expect(cartPage.locators.getQuantityBtn()).toHaveText('1');
 
+	});
+
+	test('ТС 05.01.43 Verify that the all product names in the cart are hyperlinks to the product card', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getProductName()).toBeVisible();
+		await expect(cartPage.locators.getProductName()).toHaveCSS('cursor', 'pointer');
+
+	});
+
+	test('ТС 05.01.44 Verify that the user is redirected to the product page after clicking on the hyperlinks', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		const productPage = await cartPage.clickProductName();
+
+		await expect(page).toHaveURL(PRODUCT_URL);
+		await expect(productPage.locators.getProductName()).toBeVisible();
+
+	});
+
+	test('ТС 05.01.45 Verify that the card page contains the breadcrumbs', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getBreadcrumbs()).toBeVisible();
+		await expect(cartPage.locators.getBreadcrumbs()).toHaveText(BREADCRUMBS_TEXT);
+	});
+
+	test('ТС 05.01.46 Verify that the user can navigeate by breadcrumbs', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getBreadcrumbsGolovna()).toBeVisible();
+
+		const homePage = await cartPage.clickBreadcrumbsGolovna();
+
+		await expect(page).toHaveURL(BASE_URL);
+		await expect(homePage.locators.getMainPageImg()).toBeVisible();
+
+	});
+
+	test('ТС 05.01.47 Verify that the card page contains the "Scroll to top" button', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getScrollToTopBtn()).toBeVisible();
+		
+	});
+
+	test('ТС 05.01.48 Verify that the "Scroll to top" has a pointer cursor', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getScrollToTopBtn()).toBeVisible();
+		await expect(cartPage.locators.getScrollToTopBtn()).toHaveCSS('cursor', 'pointer');
+		
+	});
+
+	test('ТС 05.01.49 Verify that the "Scroll to top" contains the icon', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		await expect(cartPage.locators.getScrollToTopBtnIcon()).toBeVisible();
+		
+	});
+
+	test('ТС 05.01.50 Verify that the card page scrolls to the top after clicking the "Scroll to top" button', async ({ page, productInTheShoppingCart }) => {
+		const cartPage = new CartPage(page);
+
+		const homePage = await cartPage.clickGolovnaBtn();
+
+		const productPage2 = await homePage.clickComfortSuitItem();
+
+		await productPage2.clickComfortSuitItemSizeBtn();
+		await productPage2.clickAddToCartBtn();
+		await productPage2.clickGolovnaBtn();
+		await homePage.clickNextBtn();
+
+		const productPage3 = await homePage.clickKnittedSuitWithHoodieItem();
+		await productPage3.clickComfortSuitItemSizeBtn();
+		await productPage3.clickAddToCartBtn();
+		await productPage3.clickCartBtn();
+
+		// Плавная прокрутка страницы вниз
+		await page.evaluate(() => {
+			window.scrollTo({
+				top: document.body.scrollHeight,
+				behavior: 'smooth'
+			});
+		});
+
+		await page.waitForTimeout(2000);
+
+		await cartPage.clickScrollToTopBtn();
+
+		await page.waitForTimeout(2000);
+
+		await expect(cartPage.locators.getBreadcrumbs()).toBeVisible();
+		
 	});
 
 })
