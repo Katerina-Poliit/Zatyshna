@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import HomePage from "../../page_objects/homePage.js";
 import ContactsPage from "../../page_objects/contactsPage.js";
-import {HEADING_TEXT, HEADING_BLOCK_TEXT} from "../../helpers/testDataContact.js";
+import {HEADING_TEXT, HEADING_BLOCK_TEXT, MESSAGE_REQUIRED, VALID_MESSEGE_EMAIL} from "../../helpers/testDataContact.js";
 
 
 test.describe('Conact Page Tests', () => {
@@ -50,6 +50,62 @@ test('TC 06.01.5 Verify that the  "Имя" field does not accept numbers, a vali
         await expect(contactPage.locators.getMessageNameField()).toBeVisible();
 
     });
+
+    test('TC 06.01.5.1 Verify that the "Имя" field is required', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageRequired()).toBeVisible();
+        await expect(contactPage.locators.getMessageRequired()).toHaveText(MESSAGE_REQUIRED);
+        await expect(contactPage.locators.getNameField()).toHaveCSS('border', '2px solid rgb(124, 125, 128)')
+
+    });
+
+    test('TC 06.01.6 Verify that the "За язатися з нами" block contains the "Email" field', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await expect(contactPage.locators.getEmailField()).toBeVisible();
+        await expect(contactPage.locators.getEmailField()).toHaveAttribute('placeholder', 'E-mail');
+
+    });
+
+    test('TC 06.01.10 Verify that the "Email" field is required', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageRequired()).toBeVisible();
+        await expect(contactPage.locators.getMessageRequired()).toHaveText(MESSAGE_REQUIRED);
+        await expect(contactPage.locators.getNameField()).toHaveCSS('border', '2px solid rgb(124, 125, 128)')
+
+    });
+
+    test('TC 06.01.7 Verify that the"E-mail" field accepts valid values', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillEmailField();
+        await expect(contactPage.locators.getEmailField()).toBeVisible();
+
+    });
+
+    test('TC 06.01.11 Verify that the "E-mail" fields are not case sensitive', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillsensitiveEmailField();
+        await expect(contactPage.locators.getEmailField()).toBeVisible();
+
+    });
+
+    test('TC 06.01.12 Verify that the "E-mail" field  accept an email with a hyphen in the users name', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillHyphenEmailField();
+        await expect(contactPage.locators.getEmailField()).toBeVisible();
+
+    });
+
+    test('TC 06.01.13 Verify that the  "E-mail" field does not accept an email with a hyphen in the domain part, a warning message has been received', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillHyphenDomainEmailField();
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageEmailField()).toBeVisible();
+        await expect(contactPage.locators.getMessageEmailField()).toHaveText(VALID_MESSEGE_EMAIL);
+
+    });
+
 
 })
 
