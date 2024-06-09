@@ -1,4 +1,5 @@
 import CatalogPage from "./catalogPage";
+import HomePage from "./homePage";
 import OrderPage from "./orderPage";
 
 class CartPage {
@@ -31,7 +32,9 @@ class CartPage {
 		getDeliveryCost: () => this.page.getByText('Вартість доставки'),
 		getAtCarrierRates: () => this.page.getByText('За тарифами перевізника'),
 		getPlaceAnOrderBtn: () => this.page.getByRole('link', { name: 'Оформити замовлення' }),
-		getContinueShoppingBtn: () => this.page.getByRole('link', { name: 'Продовжити покупки' })
+		getContinueShoppingBtn: () => this.page.getByRole('link', { name: 'Продовжити покупки' }),
+		getGolovnaBtn: () => this.page.getByRole('banner').getByRole('link', { name: 'Головна' }),
+		getScroll: () => this.page.locator('.sc-hbaYYk')
 	};
 
 	async clickQuantityAddBtn() {
@@ -62,6 +65,16 @@ class CartPage {
 	async clickPlaceAnOrderBtn() {
 		await this.locators.getPlaceAnOrderBtn().click();
 		return new OrderPage(this.page);
+	}
+
+	async clickContinueShoppingBtn() {
+		await this.locators.getContinueShoppingBtn().click();
+		return new CatalogPage(this.page);
+	}
+
+	async clickGolovnaBtn() {
+		await this.locators.getGolovnaBtn().click();
+		return new HomePage(this.page);
 	}
 
 }

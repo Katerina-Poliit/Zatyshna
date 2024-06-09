@@ -2,6 +2,8 @@ import AboutUsPage from "./aboutUsPage";
 import CatalogPage from "./catalogPage";
 import ContactsPage from "./contactsPage";
 import ProductPage from "./productPage";
+import ProductPage2 from "./productPage2";
+import ProductPage3 from "./productPage3";
 
 class HomePage {
 	constructor(page) {
@@ -65,7 +67,10 @@ class HomePage {
 		getInstagramBtnLink: () => this.page.locator('div').filter({ hasText: /^Zatyshna$/ }).getByRole('link').nth(2),
 		getGoTopLink: () => this.page.getByRole('button').nth(1),
 		getScrollToTopBtnIcon: () => this.page.locator('.sc-kZOtbI'),
-		getOpenProductCart: () => this.page.getByRole('link', { name: 'Футболка Obsessed with fa...' })
+		getOpenProductCart: () => this.page.getByRole('link', { name: 'Футболка Obsessed with fa...' }),
+		getComfortSuitItem: () => this.page.getByRole('link', { name: 'Костюм Comfort трикотажни...' }),
+		getKnittedSuitWithHoodieItem: () => this.page.getByRole('link', { name: 'Костюм трикотажний з худі...' })
+
 	};
 
 	async open() {
@@ -229,6 +234,16 @@ class HomePage {
 	async clickOpenProductCart() {
 		await this.locators.getOpenProductCart().click();
 		return new ProductPage(this.page);
+	}
+
+	async clickComfortSuitItem() {
+		await this.locators.getComfortSuitItem().click();
+		return new ProductPage2(this.page);
+	}
+
+	async clickKnittedSuitWithHoodieItem() {
+		await this.locators.getKnittedSuitWithHoodieItem().click();
+		return new ProductPage3(this.page);
 	}
 
 	async clickAboutUsBtn() {
