@@ -186,5 +186,15 @@ test.describe('Conact Page Tests', () => {
         await expect(contactPage.locators.getFacebookLink()).toBeVisible();
         await expect(contactPage.locators.getFacebookLink()).toHaveCSS('cursor', 'pointer');
     });
+
+    test('TC 06.01.27 message has been sent successfully, and the corresponding information message appears', async ({ page }) => {
+        const contactPage = new ContactsPage(page);
+        await contactPage.fillNameField();
+        await contactPage.fillEmailField();
+        await contactPage.fillTextarea();
+        await contactPage.clickSendButton();
+        await expect(contactPage.locators.getMessageSend()).toBeVisible();
+
+    });
 })
 
