@@ -1,3 +1,4 @@
+import CartPage from "./cartPage";
 
 
 class OrderPage {
@@ -8,12 +9,12 @@ class OrderPage {
     locators = {
 		getHeadingText: () => this.page.getByRole('heading', { name: 'Ваше замовлення' }),
 		getPhotoImages: ()  => this.page.locator('img'),
-		getProductName:  ()  => this.page.getByRole('heading', { name: 'Куртка Bas...' }),
-		getColorProduct: ()  => this.page.getByText('BLACK'),
-		getProductSize: ()  => this.page.locator('#root').getByText('L', { exact: true }),
+		getProductName:  ()  => this.page.getByRole('heading', { name: 'Костюм Eas...' }),
+		getColorProduct: ()  => this.page.getByText('WHITE'),
+		getProductSize: ()  => this.page.getByText('L', { exact: true }),
 		getQuantityProduct: ()  => this.page.getByText('x'),
 		getCostProduct: () => this.page.getByText('990 UAH').first(),
-		getInformationSctionProduct: () => this.page.locator('section').filter({ hasText: '1 товари(-ів) на суму3 990' }),
+		getInformationSctionProduct: () => this.page.locator('section').filter({ hasText: '1 товари(-ів) на суму2 990' }),
 		getPersonalDataSection: () => this.page.getByText('1Особисті дані'),
 		getNameField: () => this.page.getByPlaceholder('Прізвище'),
 		getOrderButton: () => this.page.getByRole('button', { name: 'Оформити замовлення' }),
@@ -33,9 +34,15 @@ class OrderPage {
 		getBlockPayment: () => this.page.getByText('3Оплата'),
 		getCheckboxPayment: () => this.page.getByText('Оплата за реквізитамиОплата при отриманні'),
 		getSuccessfulOrder: () => this.page.getByRole('main').getByRole('img'),
-		getOrderPageBreadcrumbs: () => this.page.getByRole('link', { name: 'Оформлення' })
+		getOrderPageBreadcrumbs: () => this.page.getByRole('link', { name: 'Оформлення' }),
+		getCartBtn: () => this.page.getByRole('link', { name: '1 Кошик' }),
 	 }
 
+
+	async clickCartBtn() {
+		await this.locators.getCartBtn().click();
+		return new CartPage(this.page)
+	}
 
 	async clickOrderButton() {
 		await this.locators.getOrderButton().click();

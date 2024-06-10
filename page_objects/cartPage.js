@@ -39,7 +39,8 @@ class CartPage {
 		getBreadcrumbs: () => this.page.getByText('ГоловнаКошик'),
 		getBreadcrumbsGolovna: () => this.page.getByRole('main').getByRole('link', { name: 'Головна' }),
 		getScrollToTopBtn: () => this.page.locator('.sc-gUjWqj'),
-		getScrollToTopBtnIcon: () => this.page.locator('.sc-gUjWqj')
+		getScrollToTopBtnIcon: () => this.page.locator('.sc-gUjWqj'),
+		getCloseBtn:() => this.page.locator('li').filter({ hasText: 'Костю...WHITEL12 990 UAH' }).getByRole('button')
 	};
 
 	async clickQuantityAddBtn() {
@@ -49,6 +50,12 @@ class CartPage {
 
 	async clickQuantityDecrBtn() {
 		await this.locators.getQuantityDecrBtn().click();
+		return this;
+	}
+
+
+	async clickCloseBtn() {
+		await this.locators.getCloseBtn().click();
 		return this;
 	}
 

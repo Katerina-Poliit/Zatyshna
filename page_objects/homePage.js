@@ -1,4 +1,5 @@
 import AboutUsPage from "./aboutUsPage";
+import CartPage from "./cartPage";
 import CatalogPage from "./catalogPage";
 import ContactsPage from "./contactsPage";
 import ProductPage from "./productPage";
@@ -248,6 +249,11 @@ class HomePage {
 	async clickAboutUsBtn() {
 		await this.locators.getAboutUsBtn().click();
 		return new AboutUsPage(this.page);
+	}
+
+	async clickCartBtn() {
+		await this.locators.getCartBtn().click();
+		return new CartPage(this.page);
 	}
 
 }

@@ -6,17 +6,24 @@ import QuiltedJacketPage from "../../page_objects/guiltedJacket.js";
 import PopupShoppingCartWndowPage from "../../page_objects/pop-upShoppingCartWndow.js";
 import OrderPage from "../../page_objects/orderPage.js";
 import { test, addProductCard } from "../../fixtures/base.js";
+import CartPage from "../../page_objects/cartPage.js";
 
 
 
 
-test.describe.skip('orderPage.spec', () => {
+test.describe('orderPage.spec', () => {
 
     test('TC 04.01.1 Verify that the page contains the heading "Ваше замовлення"', async ({ page, addProductCard }) => {
         const ogderPage = new OrderPage(page);
 
         await expect(ogderPage.locators.getHeadingText()).toBeVisible();
         await expect(ogderPage.locators.getHeadingText()).toHaveText(HEANDING_TEXT);
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
 
     });
 
@@ -24,6 +31,12 @@ test.describe.skip('orderPage.spec', () => {
         const ogderPage = new OrderPage(page);
 
         await expect(ogderPage.locators.getPhotoImages()).toBeVisible();
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
     });
 
     test('TC 04.01.3 Verify that the page contains a product name', async ({ page, addProductCard }) => {
@@ -31,6 +44,12 @@ test.describe.skip('orderPage.spec', () => {
 
         await expect(ogderPage.locators.getProductName()).toBeVisible();
         await expect(ogderPage.locators.getProductName()).toHaveText(PRODUCT_NAME);
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -40,6 +59,12 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getColorProduct()).toBeVisible();
         await expect(ogderPage.locators.getColorProduct()).toHaveText(COLOR_PRODUCT);
 
+        await ogderPage.clickCartBtn()
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.5 Verify that the page contains the color product size', async ({ page, addProductCard }) => {
@@ -47,6 +72,12 @@ test.describe.skip('orderPage.spec', () => {
 
         await expect(ogderPage.locators.getProductSize()).toBeVisible();
         await expect(ogderPage.locators.getProductSize()).toHaveText('L');
+
+        await ogderPage.clickCartBtn()
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -56,13 +87,25 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getQuantityProduct()).toBeVisible();
         await expect(ogderPage.locators.getQuantityProduct()).toHaveText('x 1');
 
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.7 Verify that the page contains the cost of the product', async ({ page, addProductCard }) => {
         const ogderPage = new OrderPage(page);
 
         await expect(ogderPage.locators.getCostProduct()).toBeVisible();
-        await expect(ogderPage.locators.getCostProduct()).toHaveText('3 990 UAH');
+        await expect(ogderPage.locators.getCostProduct()).toHaveText('2 990 UAH');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -72,12 +115,24 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getInformationSctionProduct()).toBeVisible();
         await expect(ogderPage.locators.getInformationSctionProduct()).toHaveCSS('background', 'rgb(244, 239, 235) none repeat scroll 0% 0% / auto padding-box border-box');
 
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.10 Verify that the section "Особисті дані".', async ({ page, addProductCard }) => {
         const ogderPage = new OrderPage(page);
         await expect(ogderPage.locators.getPersonalDataSection()).toBeVisible;
         await expect(ogderPage.locators.getPersonalDataSection()).toHaveText(PERSON_DATA);
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
     });
 
     test('TC 04.01.10.1 Verify that the "Особисті дані" section contains the mandatory "Прізвище *"field', async ({ page, addProductCard }) => {
@@ -85,7 +140,13 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getNameField()).toBeVisible();
         await expect(ogderPage.locators.getNameField()).toHaveCSS('border', '1px solid rgb(22, 11, 3)');
         await ogderPage.clickOrderButton();
-        await expect(ogderPage.locators.getNameField()).toHaveCSS('border', '2px solid rgb(124, 125, 128)')
+        await expect(ogderPage.locators.getNameField()).toHaveCSS('border', '2px solid rgb(124, 125, 128)');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -96,6 +157,12 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getMessageWarnings()).toBeVisible();
         await expect(ogderPage.locators.getMessageWarnings()).toHaveText(MESSAGE_WARNING);
 
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.11.1 Verify that the "Особисті дані" section contains the mandatory "Ім’я *"field', async ({ page, addProductCard }) => {
@@ -103,7 +170,13 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getName2Field()).toBeVisible();
         await expect(ogderPage.locators.getName2Field()).toHaveCSS('border', '1px solid rgb(22, 11, 3)');
         await ogderPage.clickOrderButton();
-        await expect(ogderPage.locators.getName2Field()).toHaveCSS('border', '1px solid rgb(255, 0, 0)')
+        await expect(ogderPage.locators.getName2Field()).toHaveCSS('border', '1px solid rgb(255, 0, 0)');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -114,6 +187,12 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getMessageWarnings()).toBeVisible();
         await expect(ogderPage.locators.getMessageWarnings()).toHaveText(MESSAGE_WARNING);
 
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.12.1 Verify that the "Особисті дані" section contains the mandatory "Номер телефону  *"field', async ({ page, addProductCard }) => {
@@ -121,7 +200,13 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getNumberPhoneField()).toBeVisible();
         await expect(ogderPage.locators.getNumberPhoneField()).toHaveCSS('border', '1px solid rgb(0, 0, 0)');
         await ogderPage.clickOrderButton();
-        await expect(ogderPage.locators.getNumberPhoneField()).toHaveCSS('border', '1px solid rgb(255, 0, 0)')
+        await expect(ogderPage.locators.getNumberPhoneField()).toHaveCSS('border', '1px solid rgb(255, 0, 0)');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -130,6 +215,12 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillNumberPhoneField();
         await expect(ogderPage.locators.getNumberPhoneField()).toBeTruthy();
 
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.14 Verify that the "Особисті дані" section contains the mandatory "Email  *"field', async ({ page, addProductCard }) => {
@@ -137,13 +228,25 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getEmailField()).toBeVisible();
         await expect(ogderPage.locators.getEmailField()).toHaveCSS('border', '1px solid rgb(22, 11, 3)');
         await ogderPage.clickOrderButton();
-        await expect(ogderPage.locators.getEmailField()).toHaveCSS('border', '1px solid rgb(255, 0, 0)')
+        await expect(ogderPage.locators.getEmailField()).toHaveCSS('border', '1px solid rgb(255, 0, 0)');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
     test('TC 04.01.30 Verify that the phone field contains a +38 placeholder', async ({ page, addProductCard }) => {
         const ogderPage = new OrderPage(page);
-        await expect(ogderPage.locators.getNumberPhoneField()).toHaveAttribute('placeholder', '+38(0__)___-__-__')
+        await expect(ogderPage.locators.getNumberPhoneField()).toHaveAttribute('placeholder', '+38(0__)___-__-__');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
     });
 
     test('TC 04.01.40 Verify that the  the email address details are entered by entering a space after the @ sign, an error message will appear', async ({ page, addProductCard }) => {
@@ -151,7 +254,13 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillSpaceAfterAtEmailField();
         await ogderPage.clickOrderButton();
         await page.waitForTimeout(2000);
-        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy()
+        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy();
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -160,7 +269,13 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillSpaceBeforeAtEmailField();
         await ogderPage.clickOrderButton();
         await page.waitForTimeout(2000);
-        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy()
+        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy();
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -169,7 +284,13 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillWithoutDotDomainEmailField();
         await ogderPage.clickOrderButton();
         await page.waitForTimeout(2000);
-        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy()
+        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy();
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -178,7 +299,14 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillWihtDotDomainNameEmailField();
         await ogderPage.clickOrderButton();
         await page.waitForTimeout(2000);
-        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy()
+        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy();
+
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -187,7 +315,13 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillWihtoutAtDotEmailField();
         await ogderPage.clickOrderButton();
         await page.waitForTimeout(2000);
-        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy()
+        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy();
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -196,7 +330,13 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillWihtoutNameEmailField();
         await ogderPage.clickOrderButton();
         await page.waitForTimeout(2000);
-        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy()
+        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy();
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -205,7 +345,13 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillSpecialCharactersEmailField();
         await ogderPage.clickOrderButton();
         await page.waitForTimeout(2000);
-        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy()
+        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy();
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
     test('TC 04.01.47 Verify that the email address details are entered by entering Cyrillic letters before the @sign, an error message will appear', async ({ page, addProductCard }) => {
@@ -213,14 +359,26 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.fillCyrillicLettersEmailField();
         await ogderPage.clickOrderButton();
         await page.waitForTimeout(2000);
-        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy()
+        await expect(ogderPage.locators.getMessageEmailField()).toBeTruthy();
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
     test('TC 04.01.50 Verify that the a section "Інформація про доставку"', async ({ page, addProductCard }) => {
         const ogderPage = new OrderPage(page);
         await expect(ogderPage.locators.getBlockDelivery()).toBeVisible();
-        await expect(ogderPage.locators.getBlockDelivery()).toHaveText(DELIVERY_TEXT)
+        await expect(ogderPage.locators.getBlockDelivery()).toHaveText(DELIVERY_TEXT);
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
     });
 
     test('TC 04.01.51 Verify that the the mandatory dropdown "Обeрить место доставки"', async ({ page, addProductCard }) => {
@@ -229,7 +387,13 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getPlaceDeliveryDropdown()).toHaveAttribute('placeholder', 'Оберіть місто доставки');
         await expect(ogderPage.locators.getPlaceDeliveryDropdown()).toHaveCSS('border', '1px solid rgb(22, 11, 3)');
         await ogderPage.clickOrderButton();
-        await expect(ogderPage.locators.getPlaceDeliveryDropdown()).toHaveCSS('border', '1px solid rgb(242, 64, 64)')
+        await expect(ogderPage.locators.getPlaceDeliveryDropdown()).toHaveCSS('border', '1px solid rgb(242, 64, 64)');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -240,6 +404,12 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.clickChoosingCityDropdown();
         await expect(ogderPage.locators.getPlaceDeliveryDropdown()).toBeAttached();
 
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.53 Verify that the  mandatory dropdown "Оберить вiддленняi"', async ({ page, addProductCard }) => {
@@ -248,7 +418,13 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.DepartmentDropdown()).toHaveAttribute('placeholder', 'Оберіть відділення');
         await expect(ogderPage.locators.DepartmentDropdown()).toHaveCSS('border', '1px solid rgb(22, 11, 3)');
         await ogderPage.clickOrderButton();
-        await expect(ogderPage.locators.DepartmentDropdown()).toHaveCSS('border', '1px solid rgb(242, 64, 64)')
+        await expect(ogderPage.locators.DepartmentDropdown()).toHaveCSS('border', '1px solid rgb(242, 64, 64)');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -261,6 +437,12 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.clickChoosingDepartmentDropdown();
         await expect(ogderPage.locators.DepartmentDropdown()).toBeAttached();
 
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.55 Verify that thedropdown "Обмерить место доставки" does not accept numbers, a warning message has been received', async ({ page, addProductCard }) => {
@@ -268,6 +450,12 @@ test.describe.skip('orderPage.spec', () => {
         await ogderPage.filldigitPlaceDeliveryDropdown();
         await expect(ogderPage.locators.getMessageCityDropdown()).toBeVisible()
         await expect(ogderPage.locators.getMessageCityDropdown()).toHaveText(MESSAGE_CITY_DROPDOWN);
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -277,7 +465,13 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getCheckBoxMandatory()).toHaveText(CHECKBOX_MANDATORY);
         await expect(ogderPage.locators.getCheckBoxMandatory()).toHaveCSS('border', '0px none rgb(157, 154, 151)');
         await ogderPage.clickOrderButton();
-        await expect(ogderPage.locators.getCheckBoxMandatory()).toHaveCSS('border', '0px none rgb(255, 0, 0)')
+        await expect(ogderPage.locators.getCheckBoxMandatory()).toHaveCSS('border', '0px none rgb(255, 0, 0)');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
 
     });
@@ -288,12 +482,24 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getCheckbox()).toHaveText(CHECKBOX);
         await expect(ogderPage.locators.getCheckbox()).toHaveCSS('border', '0px none rgb(157, 154, 151)');
 
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.59 Verify that the is a "Оплата"section.', async ({ page, addProductCard }) => {
         const ogderPage = new OrderPage(page);
         await expect(ogderPage.locators.getBlockPayment()).toBeVisible();
         await expect(ogderPage.locators.getBlockPayment()).toHaveText(PAYMENT_TEXT);
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
@@ -303,6 +509,13 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getCheckboxPayment()).toHaveText(CHECKBOX_PAYMENT_TEXT);
         await expect(ogderPage.locators.getCheckboxPayment()).toBeEditable();
 
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
+
     });
 
     test('TC 04.01.63 Verify that the page contains the "Оформити замовлення"button.', async ({ page, addProductCard }) => {
@@ -311,6 +524,12 @@ test.describe.skip('orderPage.spec', () => {
         await expect(ogderPage.locators.getOrderButton()).toHaveCSS('background', 'rgb(22, 11, 3) none repeat scroll 0% 0% / auto padding-box border-box');
         await expect(ogderPage.locators.getOrderButton()).toHaveText(PLACE_ORDER_BUTTON_TEXT);
         await expect(ogderPage.locators.getOrderButton()).toHaveCSS('cursor', 'pointer');
+
+        await ogderPage.clickCartBtn();
+        await page.waitForTimeout(2000);
+
+       const cardPage = new CartPage(page);
+       await cardPage.clickCloseBtn();
 
     });
 
