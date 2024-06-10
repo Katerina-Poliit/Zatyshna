@@ -48,6 +48,11 @@ class CartPage {
 		return this;
 	}
 
+	async clickQuantityDecrBtn() {
+		await this.locators.getQuantityDecrBtn().click();
+		return this;
+	}
+
 
 	async clickCloseBtn() {
 		await this.locators.getCloseBtn().click();
